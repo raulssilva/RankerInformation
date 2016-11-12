@@ -1,0 +1,28 @@
+CREATE TABLE Usuario(
+	matricula VARCHAR(20) NOT NULL PRIMARY KEY,
+	nome VARCHAR (100) NOT NULL,
+	curso VARCHAR (75) NOT NULL
+);
+
+CREATE TABLE Noticia(
+	titulo VARCHAR(100) NOT NULL PRIMARY KEY,
+	conteudo VARCHAR (500) NOT NULL,
+	dataPublicacao VARCHAR (20) NOT NULL
+);
+
+
+CREATE TABLE PreferenciasUsuario(
+	idTermo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	termo VARCHAR (50) NOT NULL,
+	repeticoes INTEGER NOT NULL,
+	matUsuario VARCHAR(20) NOT NULL,
+	FOREIGN KEY (matUsuario) REFERENCES Usuario(matricula)
+);
+
+CREATE TABLE PreferenciasNoticia(
+	idTermo INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	termo VARCHAR (50) NOT NULL,
+	repeticoes INTEGER NOT NULL,
+	tituloNoticia VARCHAR(100) NOT NULL,
+	FOREIGN KEY (tituloNoticia) REFERENCES Noticia(titulo)
+);
