@@ -3,18 +3,15 @@ package br.ufrn.imd.rankerinformation.user.model;
 public class User {
 	
 	private String name;
-	private int idUser;
-	private int idStudent;
-	private int idMatriculation;
+	private int id;
 	
 	public User() {
+		
 	}
 
-	public User(String name, int idUser, int idStudent, int idMatriculation) {
+	public User(String name, int id) {
 		this.name = name;
-		this.idUser = idUser;
-		this.idStudent = idStudent;
-		this.idMatriculation = idMatriculation;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -26,33 +23,12 @@ public class User {
 	}
 	
 	public int getId() {
-		return idUser;
+		return id;
 	}
 	
 	public void setId(int id) {
-		this.idUser = id;
+		this.id = id;
 	}
 
-	public int getIdStudent() {
-		return idStudent;
-	}
-
-	public void setIdStudent(int idStudent) {
-		this.idStudent = idStudent;
-	}
-
-	public int getIdMatriculation() {
-		return idMatriculation;
-	}
-
-	public void setIdMatriculation(int idMatriculation) {
-		this.idMatriculation = idMatriculation;
-	}
-
-	@Override
-	public String toString() {
-		return "User [name=" + name + ", idUser=" + idUser + ", idStudent=" + idStudent + ", idMatriculation="
-				+ idMatriculation + "]";
-	}
 	
 }

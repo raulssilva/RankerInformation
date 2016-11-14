@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.imd.rankerinformation.db.JdbcSQLiteConnection;
-import br.ufrn.imd.rankerinformation.user.model.CourseClass;
 import br.ufrn.imd.rankerinformation.user.model.Prefferences;
+import br.ufrn.imd.rankerinformation.user.model.SourceData;
 
 
 public class PrefferencesDAO {
@@ -30,35 +30,26 @@ public class PrefferencesDAO {
     
     
  
-	public boolean createPrefferences(Prefferences prefferences){
-
-        sql = "INSERT INTO PREFFERENCES VALUES (?, ?, ?, ?)";
-        
+    public boolean createPrefferences(Prefferences prefferences){
+        sql = "INSERT INTO PREFFERENCES VALUES (?, ?)";
         UserDAO userDAO = new UserDAO();
-        CourseDAO courseDAO = new CourseDAO();
-//        DepartmentDAO departmentDAO = new DepartmentDAO();
+        SourceDataDAO sourceDataDAO = new SourceDataDAO();
         try {
- 
-            PreparedStatement query = connection.prepareStatement(sql);
-            query.setInt(1, prefferences.getId());
-            query.setInt(2, prefferences.getUser().getId());
-            userDAO.createUser(prefferences.getUser());
-            query.setInt(3, prefferences.getCourse().getId());
-            courseDAO.createCourse( prefferences.getCourse());
-            insertPrefferencesCoursesClass(prefferences);
-            query.setInt(4, 0);//TODO AJEITAR DEPARTAMENTO
-//            departmentDAO.createDepartament();
- 
-            query.execute();
-            query.close();
-            
-            return true;
- 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-		return false;
+    		PreparedStatement query = connection.prepareStatement(sql);
+    		query.setInt(1, prefferences.getId());
+    		query.setInt(2, prefferences.getUser().getId());
+    		userDAO.createUser(prefferences.getUser());
+    		query.execute();
+    		query.close();
+    		for(SourceData sourcedata : prefferences.getListSourceData()){
+    			sourceDataDAO.createSourceData(sourcedata);
+    		}
+    		insertPrefferencesCoursesClass(prefferences);
+    		return true;
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return false;
     }
 	
 	public Prefferences readPrefferencesByIdUser(int ID_USER){
@@ -70,15 +61,13 @@ public class PrefferencesDAO {
             ResultSet rs = query.executeQuery(sql);
  
             UserDAO userDAO = new UserDAO();
-            CourseDAO courseDAO = new CourseDAO();
+     
             while (rs.next()) {
-
                 prefferences.setId(rs.getInt("ID_PREFFERENCES"));
-                prefferences.setUser(userDAO.readUser(rs.getInt("ID_USER")));
-                prefferences.setCourse(courseDAO.readCourse(rs.getInt("ID_COURSE")));
-                prefferences.setCoursesClass(readPrefferencesCoursesClass(prefferences));
-                prefferences.setDepartment(null);//TODO AJEITAR DEPARTAMENTO
+                prefferences.setUser(userDAO.readUser(ID_USER));
+                prefferences.setListSourceData(readPrefferencesSourceData(rs.getInt("ID_PREFFERENCES")));
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,14 +85,11 @@ public class PrefferencesDAO {
             ResultSet rs = query.executeQuery(sql);
  
             UserDAO userDAO = new UserDAO();
-            CourseDAO courseDAO = new CourseDAO();
             while (rs.next()) {
 
                 prefferences.setId(rs.getInt("ID_PREFFERENCES"));
                 prefferences.setUser(userDAO.readUser(rs.getInt("ID_USER")));
-                prefferences.setCourse(courseDAO.readCourse(rs.getInt("ID_COURSE")));
-                prefferences.setCoursesClass(readPrefferencesCoursesClass(prefferences));
-                prefferences.setDepartment(null);//TODO AJEITAR DEPARTAMENTO
+                prefferences.setListSourceData(readPrefferencesSourceData(prefferences));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,25 +125,21 @@ public class PrefferencesDAO {
     }
     
     private boolean insertPrefferencesCoursesClass(Prefferences prefferences){
-    	List<CourseClass> coursesClass = prefferences.getCoursesClass();
+    	List<SourceData> listSourceData = prefferences.getListSourceData();
     	
-    	sql = "INSERT INTO PREFFERENCES_COURSE_CLASS (ID_PREFFERENCES, ID_COURSE_CLASS) VALUES (?, ?)";
-    	
-    	CourseClassDAO courseClassDAO = new CourseClassDAO(); 
-    	SubjectDAO subjectDAO = new SubjectDAO(); 
+    	sql = "INSERT INTO PREFFERENCES_SOURCE_DATA (ID_PREFFERENCES, ID_SOURCE_DATA VALUES (?, ?)";
+
+    	SourceDataDAO sourceDataDAO = new SourceDataDAO();
     	try {
 	    	
-    		for (CourseClass courseClass : coursesClass) {
+    		for (SourceData sourceData : listSourceData) {
 	    		
     			PreparedStatement query = connection.prepareStatement(sql);
 	    		query.setInt(1, prefferences.getId());
-	            query.setInt(2, courseClass.getId());
+	            query.setInt(2, sourceData.getId());
 	            query.execute();
 	            query.close();
-	            
-	            courseClassDAO.createCourseClass(courseClass);
-	            subjectDAO.createSubject(courseClass.getSubject());
-
+	            sourceDataDAO.createSourceData(sourceData);
 			}
         
         } catch (SQLException e) {
@@ -167,23 +149,49 @@ public class PrefferencesDAO {
 		return false;
     }
     
-    private List<CourseClass> readPrefferencesCoursesClass(Prefferences prefferences){ 	
+    private List<SourceData> readPrefferencesSourceData(Prefferences prefferences){ 	
     	
-    	sql = "SELECT * FROM PREFFERENCES_COURSE_CLASS WHERE ID_PREFFERENCES = "+ prefferences.getId();
+    	sql = "SELECT * FROM PREFFERENCES_SOURCE_DATA WHERE ID_PREFFERENCES = "+ prefferences.getId();
 
     	try {
 
-    		List<CourseClass> coursesClass = new ArrayList<CourseClass>();
+    		List<SourceData> listSourceData = new ArrayList<SourceData>();
     		
     		query = connection.createStatement();
             ResultSet rs = query.executeQuery(sql);
  
-            CourseClassDAO courseClassDAO = new CourseClassDAO();
+            SourceDataDAO sourceDataDAO = new SourceDataDAO();
             
             while (rs.next()) {
-            	coursesClass.add(courseClassDAO.readCourseClass(rs.getInt("ID_COURSE_CLASS")));
+            	listSourceData.add(sourceDataDAO.readSourceData(rs.getInt("ID_SOURCE_DATA")));
             }
-            return coursesClass;
+            return listSourceData;
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+		return null;
+    }
+    
+    
+    private List<SourceData> readPrefferencesSourceData(int ID_PREFFERENCES){ 	
+    	
+    	sql = "SELECT * FROM PREFFERENCES_SOURCE_DATA WHERE ID_PREFFERENCES = "+ ID_PREFFERENCES;
+
+    	try {
+
+    		List<SourceData> listSourceData = new ArrayList<SourceData>();
+    		
+    		query = connection.createStatement();
+            ResultSet rs = query.executeQuery(sql);
+ 
+            SourceDataDAO sourceDataDAO = new SourceDataDAO();
+            
+            while (rs.next()) {
+            	listSourceData.add(sourceDataDAO.readSourceData(rs.getInt("ID_SOURCE_DATA")));
+            }
+            return listSourceData;
         
         } catch (SQLException e) {
             e.printStackTrace();

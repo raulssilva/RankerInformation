@@ -1,7 +1,6 @@
 package br.ufrn.imd.rankerinformation.engine;
 
 import br.ufrn.imd.rankerinformation.db.DBGenerator;
-import br.ufrn.imd.rankerinformation.engine.search.NewsParserHTMLSearchEngine;
 import br.ufrn.imd.rankerinformation.engine.search.SearchEngine;
 
 public class Manager {
@@ -19,13 +18,13 @@ public class Manager {
 		ManagerCycleLife mcl = new ManagerCycleLife(ACESS_TOKEN, ID_USER);
 		
 		//Cria um gerente de busca de noticias
-		SearchEngine sn = new NewsParserHTMLSearchEngine();
+//		SearchEngine sn = new NewsParserHTMLSearchEngine();
 		
 		//Adiciona um observador ao gerente de busca
-		sn.addObserver(mcl);
-		
-		//Start no processo de busca
-		sn.start();
+//		sn.addObserver(mcl);
+//		
+//		//Start no processo de busca
+//		sn.start();
 
 	}
 

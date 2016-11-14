@@ -1,62 +1,23 @@
 package br.ufrn.imd.rankerinformation.user.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Prefferences {
 	
 	private int id;
 	private User user;
-	private Course course;
-	private List<CourseClass> coursesClass;
-	private Department department;
+	private List<SourceData> listSourceData;
 	
 	public Prefferences() {
+		listSourceData = new ArrayList<SourceData>();
+	}
+
+	public Prefferences(int id, User user, List<SourceData> listSourceData) {
 		super();
-	}
-
-	public Prefferences(Course course, List<CourseClass> coursesClass, User user) {
-		super();
-		this.course = course;
-		this.coursesClass = coursesClass;
+		this.id = id;
 		this.user = user;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-	
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-	
-	public Course getCourse() {
-		return course;
-	}
-	
-	public void setCourse(Course course) {
-		this.course = course;
-	}
-		
-	public User getUser() {
-		return user;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public List<CourseClass> getCoursesClass() {
-		return coursesClass;
-	}
-
-	public void setCoursesClass(List<CourseClass> coursesClass) {
-		this.coursesClass = coursesClass;
-	}
-
-	@Override
-	public String toString() {
-		return "Prefferences [department=" + department + ", course=" + course + ", coursesClass=" + coursesClass
-				+ ", user=" + user + "]";
+		this.listSourceData = listSourceData;
 	}
 
 	public int getId() {
@@ -66,5 +27,25 @@ public class Prefferences {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<SourceData> getListSourceData() {
+		return listSourceData;
+	}
+
+	public void setListSourceData(List<SourceData> listSourceData) {
+		this.listSourceData = listSourceData;
+	}
 	
+	public void addSourceData(SourceData sourceData){
+		listSourceData.add(sourceData);
+	}
+
 }

@@ -33,16 +33,14 @@ public class UserDAO {
  
     public boolean createUser(User user){
 
-        sql = "INSERT INTO USER VALUES (?, ?, ?, ?)";
+        sql = "INSERT INTO USER VALUES (?, ?)";
  
         try {
  
             PreparedStatement query = connection.prepareStatement(sql);
             query.setInt(1, user.getId());
             query.setString(2, user.getName());
-            query.setInt(3, user.getIdStudent());
-            query.setInt(4, user.getIdMatriculation());
- 
+            
             query.execute();
             query.close();
             
@@ -68,8 +66,6 @@ public class UserDAO {
             while (rs.next()) {
                 user.setId(rs.getInt("ID_USER"));
                 user.setName(rs.getString("NAME"));
-                user.setIdStudent(rs.getInt("ID_STUDENT"));
-                user.setIdMatriculation(rs.getInt("ID_MATRICULATION"));
             }
             return user;
         } catch (SQLException e) {

@@ -2,9 +2,8 @@ package br.ufrn.imd.rankerinformation.engine.filter.model;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import br.ufrn.imd.rankerinformation.user.model.CourseClass;
 import br.ufrn.imd.rankerinformation.user.model.Prefferences;
+import br.ufrn.imd.rankerinformation.user.model.SourceData;
 
 public class PreferencesTerms {
 	
@@ -13,21 +12,13 @@ public class PreferencesTerms {
 	//TODO PONTO FRÁGIL (só dados academicos)
 	public PreferencesTerms(Prefferences preferences){
 		Set<UserPreferences> terms = new HashSet<>();
-		for (CourseClass course : preferences.getCoursesClass()) {
-			String nameDisciplina = course.getSubject().getName();
-			
-			String matricula = String.valueOf(preferences.getUser().getIdMatriculation());
-			UserPreferences userPreferences = new UserPreferences(nameDisciplina, matricula);
+		for (SourceData sourceData : preferences.getListSourceData()) {
+			UserPreferences userPreferences = new UserPreferences(sourceData.getContent());
 			terms.add(userPreferences);
-			//System.out.println(nameDisciplina);
 		}
 		setUserPreferences(terms);
 
 	}
-	
-//	private abstract void extractPreferences(Prefferences preferences){
-//		
-//	}
 
 	public Set<UserPreferences> getUserPreferences() {
 		return userPreferences;
