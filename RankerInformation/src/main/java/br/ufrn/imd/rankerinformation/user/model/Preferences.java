@@ -3,17 +3,17 @@ package br.ufrn.imd.rankerinformation.user.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Prefferences {
+public class Preferences {
 	
 	private int id;
 	private User user;
 	private List<SourceData> listSourceData;
 	
-	public Prefferences() {
+	public Preferences() {
 		listSourceData = new ArrayList<SourceData>();
 	}
 
-	public Prefferences(int id, User user, List<SourceData> listSourceData) {
+	public Preferences(int id, User user, List<SourceData> listSourceData) {
 		super();
 		this.id = id;
 		this.user = user;

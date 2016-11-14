@@ -10,11 +10,6 @@ import java.sql.Statement;
 import br.ufrn.imd.rankerinformation.db.JdbcSQLiteConnection;
 import br.ufrn.imd.rankerinformation.user.model.SourceData;
 
-
-/**
- * @Fonte https://desenvolvimentoaberto.org/2014/12/10/dao-data-access-object-pattern-crud-oracle-ibm-db2-mssql-server-java/
- * @Editado_por Felipe
- */
 public class SourceDataDAO {
 	
 	private Connection connection = null;
@@ -33,7 +28,7 @@ public class SourceDataDAO {
  
     public boolean createSourceData(SourceData sourceData){
 
-        sql = "INSERT INTO SOURCEDATA VALUES (?, ?, ?)";
+        sql = "INSERT INTO SOURCE_DATA VALUES (?, ?, ?)";
  
         try {
  
@@ -51,10 +46,10 @@ public class SourceDataDAO {
 		return false;
     }
     
-    public SourceData readSourceData(int ID_SOURCEDATA){
+    public SourceData readSourceData(int ID_SOURCE_DATA){
     	SourceData sourceData = new SourceData();
     	
-        sql = "SELECT * FROM SOURCEDATA WHERE ID_SOURCEDATA = " + ID_SOURCEDATA;
+        sql = "SELECT * FROM SOURCE_DATA WHERE ID_SOURCE_DATA = " + ID_SOURCE_DATA;
        
         try {
         	
@@ -63,7 +58,7 @@ public class SourceDataDAO {
  
 
             while (rs.next()) {
-                sourceData.setId(rs.getInt("ID_SOURCEDATA"));
+                sourceData.setId(rs.getInt("ID_SOURCE_DATA"));
                 sourceData.setContent(rs.getString("CONTENT"));
                 sourceData.setWeight(rs.getDouble("WEIGHT"));
             }
@@ -83,7 +78,7 @@ public class SourceDataDAO {
     
     public boolean deleteSourceData(int ID_SOURCEDATA){
 
-        sql = "DELETE FROM SOURCEDATA WHERE ID_SOURCEDATA = ?";
+        sql = "DELETE FROM SOURCE_DATA WHERE ID_SOURCE_DATA = ?";
  
         PreparedStatement query;
         

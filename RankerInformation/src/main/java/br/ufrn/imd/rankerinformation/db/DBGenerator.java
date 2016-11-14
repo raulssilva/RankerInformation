@@ -4,10 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * @Fonte https://www.tutorialspoint.com/sqlite/sqlite_java.htm
- * @Editado
- */
 public class DBGenerator {
 
 	
@@ -42,19 +38,19 @@ public class DBGenerator {
 								+ "CONTENT VARCHAR(60) NOT NULL,"
 								+ "WEIGHT REAL"
 							+ ");";
-			String sqlPREFFERENCES = "CREATE TABLE IF NOT EXISTS PREFFERENCES("
-								+ "ID_PREFFERENCES INT NOT NULL PRIMARY KEY,"
+			String sqlPREFERENCES = "CREATE TABLE IF NOT EXISTS PREFERENCES("
+								+ "ID_PREFERENCES INT NOT NULL PRIMARY KEY,"
 								+ "ID_USER VARCHAR(60) NOT NULL"
 							+ ");";
-			String sqlPREFFERENCES_SOURCE_DATA = "CREATE TABLE IF NOT EXISTS PREFFERENCES_SOURCE_DATA("
+			String sqlPREFERENCES_SOURCE_DATA = "CREATE TABLE IF NOT EXISTS PREFERENCES_SOURCE_DATA("
 													+ "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-													+ "ID_PREFFERENCES INT NOT NULL,"
+													+ "ID_PREFERENCES INT NOT NULL,"
 													+ "ID_SOURCE_DATA INT NOT NULL"
 												+ ");";
 
 
             
-			String sql = sqlUSER + sqlSOURCE_DATA + sqlPREFFERENCES + sqlPREFFERENCES_SOURCE_DATA;
+			String sql = sqlUSER + sqlSOURCE_DATA + sqlPREFERENCES + sqlPREFERENCES_SOURCE_DATA;
 			
 			stmt.executeUpdate(sql);
 			stmt.close();

@@ -1,28 +1,21 @@
 package br.ufrn.imd.rankerinformation.engine;
 
 import java.util.List;
-
-
-import org.json.simple.parser.ParseException;
-
 import br.ufrn.imd.rankerinformation.dao.PrefferencesDAO;
 import br.ufrn.imd.rankerinformation.dao.UserDAO;
 import br.ufrn.imd.rankerinformation.engine.filter.Analyzer;
 import br.ufrn.imd.rankerinformation.engine.filter.IntersectionModelAssociation;
 import br.ufrn.imd.rankerinformation.engine.model.Information;
 import br.ufrn.imd.rankerinformation.oauth.RequestAuthorization;
-import br.ufrn.imd.rankerinformation.oauth.exceptions.RequestException;
-import br.ufrn.imd.rankerinformation.oauth.exceptions.UnauthorizedServiceRequestException;
-import br.ufrn.imd.rankerinformation.user.model.Prefferences;
+import br.ufrn.imd.rankerinformation.user.model.Preferences;
 import br.ufrn.imd.rankerinformation.user.model.User;
 import br.ufrn.imd.rankerinformation.user.search.PreferencesBuilder;
-import br.ufrn.imd.rankerinformation.user.search.exceptions.ServiceAPIException;
 
 public class ManagerCycleLife implements Observer {
 	
 	private String acess_token;
 	private int iduserCycleLife;
-	private Prefferences prefferences;
+	private Preferences prefferences;
 	
 	public ManagerCycleLife(String acess_token, int iduserCycleLife){
 		this.acess_token = acess_token;

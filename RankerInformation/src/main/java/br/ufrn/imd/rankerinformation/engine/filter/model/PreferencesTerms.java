@@ -2,7 +2,7 @@ package br.ufrn.imd.rankerinformation.engine.filter.model;
 
 import java.util.HashSet;
 import java.util.Set;
-import br.ufrn.imd.rankerinformation.user.model.Prefferences;
+import br.ufrn.imd.rankerinformation.user.model.Preferences;
 import br.ufrn.imd.rankerinformation.user.model.SourceData;
 
 public class PreferencesTerms {
@@ -10,7 +10,7 @@ public class PreferencesTerms {
 	private Set<UserPreferences> userPreferences;
 	
 	//TODO PONTO FRÁGIL (só dados academicos)
-	public PreferencesTerms(Prefferences preferences){
+	public PreferencesTerms(Preferences preferences){
 		Set<UserPreferences> terms = new HashSet<>();
 		for (SourceData sourceData : preferences.getListSourceData()) {
 			UserPreferences userPreferences = new UserPreferences(sourceData.getContent());

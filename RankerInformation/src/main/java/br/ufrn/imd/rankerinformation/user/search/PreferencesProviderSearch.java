@@ -9,5 +9,7 @@ import br.ufrn.imd.rankerinformation.user.model.User;
 public interface PreferencesProviderSearch {
 
 	public User consultUser(RequestAuthorization auth);
+	
 	public List<SourceData> consultDataSource(RequestAuthorization auth, User user);
+	
 }

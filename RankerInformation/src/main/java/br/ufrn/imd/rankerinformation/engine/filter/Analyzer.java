@@ -9,11 +9,11 @@ import br.ufrn.imd.rankerinformation.engine.filter.model.ComparativeTerm;
 import br.ufrn.imd.rankerinformation.engine.filter.model.PreferencesTerms;
 import br.ufrn.imd.rankerinformation.engine.filter.model.UserPreferences;
 import br.ufrn.imd.rankerinformation.engine.model.Information;
-import br.ufrn.imd.rankerinformation.user.model.Prefferences;
+import br.ufrn.imd.rankerinformation.user.model.Preferences;
 
 public class Analyzer{
 
-	public List<Information> analyze(List<Information> informations, Prefferences prefferences, ModelAssociation modelAssociation) {
+	public List<Information> analyze(List<Information> informations, Preferences prefferences, ModelAssociation modelAssociation) {
 //		System.out.println("analyze(Size Informations: "+informations.size()+", Prefferences"+prefferences.getUser().getName() +", "+modelAssociation.getClass().getCanonicalName()+")");
 		List<ComparativeInformation> comparativeInformationList = new ArrayList<ComparativeInformation>();
 		
