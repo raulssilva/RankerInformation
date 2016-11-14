@@ -2,14 +2,15 @@ package br.ufrn.imd.rankerinformation.user.model;
 
 public class User {
 	
-	private String name;
 	private int id;
+	private String name;
+	
 	
 	public User() {
 		
 	}
 
-	public User(String name, int id) {
+	public User(int id, String name) {
 		this.name = name;
 		this.id = id;
 	}

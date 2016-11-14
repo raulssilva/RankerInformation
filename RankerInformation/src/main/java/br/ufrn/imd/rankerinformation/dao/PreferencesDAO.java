@@ -12,12 +12,12 @@ import br.ufrn.imd.rankerinformation.db.JdbcSQLiteConnection;
 import br.ufrn.imd.rankerinformation.user.model.Preferences;
 import br.ufrn.imd.rankerinformation.user.model.SourceData;
 
-public class PrefferencesDAO {
+public class PreferencesDAO {
 	private Connection connection = null;
     private Statement query;
     private String sql;
  
-    public PrefferencesDAO() {
+    public PreferencesDAO() {
     	
         try {
         	JdbcSQLiteConnection jdbcSQLiteConnection = JdbcSQLiteConnection.getInstance(); 
@@ -39,9 +39,6 @@ public class PrefferencesDAO {
     		userDAO.createUser(preferences.getUser());
     		query.execute();
     		query.close();
-    		for(SourceData sourcedata : preferences.getListSourceData()){
-    			sourceDataDAO.createSourceData(sourcedata);
-    		}
     		insertPreferencesSourceData(preferences);
     		return true;
     	} catch (SQLException e) {
@@ -125,7 +122,7 @@ public class PrefferencesDAO {
     private boolean insertPreferencesSourceData(Preferences preferences){
     	List<SourceData> listSourceData = preferences.getListSourceData();
     	
-    	sql = "INSERT INTO PREFERENCES_SOURCE_DATA (ID_PREFERENCES, ID_SOURCE_DATA VALUES (?, ?)";
+    	sql = "INSERT INTO PREFERENCES_SOURCE_DATA (ID_PREFERENCES, ID_SOURCE_DATA) VALUES (?, ?)";
 
     	SourceDataDAO sourceDataDAO = new SourceDataDAO();
     	try {
@@ -137,6 +134,7 @@ public class PrefferencesDAO {
 	            query.setInt(2, sourceData.getId());
 	            query.execute();
 	            query.close();
+//	            System.out.println(sourceData.getId());
 	            sourceDataDAO.createSourceData(sourceData);
 			}
         

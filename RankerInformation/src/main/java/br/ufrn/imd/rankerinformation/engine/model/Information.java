@@ -1,16 +1,28 @@
 package br.ufrn.imd.rankerinformation.engine.model;
 
-public abstract class Information {
+public class Information {
 	
 	private String date;
 	private String title;
 	private String content;
 	
-	public abstract void informationDescription();
+//	public abstract void informationDescription();
+	
+	public Information() {
+
+	}
+	
+	public Information(String date, String title, String content) {
+		super();
+		this.date = date;
+		this.title = title;
+		this.content = content;
+	}
 	
 	public String getDate() {
 		return date;
 	}
+	
 	public void setDate(String date) {
 		this.date = date;
 	}

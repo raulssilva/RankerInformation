@@ -1,4 +1,4 @@
-package br.ufrn.imd.rankerinformation.user.search;
+package br.ufrn.imd.rankerinformation.util;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
