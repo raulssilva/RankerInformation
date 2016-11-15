@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import br.ufrn.imd.rankerinformation.engine.model.Information;
+import br.ufrn.imd.rankerinformation.model.Information;
 import br.ufrn.imd.rankerinformation.user.model.Preferences;
 import br.ufrn.imd.rankerinformation.user.model.SourceData;
 

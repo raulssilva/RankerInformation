@@ -6,9 +6,10 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import br.ufrn.imd.rankerinformation.engine.model.Information;
+import br.ufrn.imd.rankerinformation.model.Information;
 
 public class MoviesSearchEngine extends SearchEngine{
 
@@ -21,28 +22,50 @@ public class MoviesSearchEngine extends SearchEngine{
 	
 	@Override
 	public List<Information> buscar() {
-		long start = System.currentTimeMillis();
-		
-		String filme = "http://www3.cinemark.com.br/natal/cinemas?cinema=681";
-    	System.out.println("[SEARCHING_MOVIES] http://www3.cinemark.com.br/natal/cinemas?cinema=681");
-    	
-    	List<String> links = new ArrayList<String>();
-    	List<String> genres = new ArrayList<String>();
-    	List<String> titles = new ArrayList<String>();
-    	
-    	List<String> contents = new ArrayList<String>();
-    	
-    	Document doc = null;
+		String noticia = "http://www3.cinemark.com.br/natal/cinemas?cinema=681";
+		Document doc = null;
 		try {
-			doc = Jsoup.connect(filme).get();
+			doc = Jsoup.connect(noticia).get();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-		Elements doc1 = doc.getElementsByClass("listagem_noticia"); //Pega Lista de Notícia
+		Element el = doc.getElementsByClass("tabs-content").get(0).getElementsByClass("active").get(0);
+		Elements elTitles = el.getElementsByClass("title");
 		
+		List<String> titles = new ArrayList<>();
+		List<String> generos = new ArrayList<>();
+		List<String> linksGeneros = new ArrayList<>();
 		
-		return null;
+		for(Element eli : elTitles){
+			titles.add(eli.text());
+			linksGeneros.add("http://www3.cinemark.com.br"+eli.getElementsByTag("a").get(0).attr("href"));
+		}
+		for(String linkgenero : linksGeneros){
+			String genero = null;
+			try {
+				doc = Jsoup.connect(linkgenero).get();
+				Element elsgen = doc.getElementsByClass("detail-title").get(4);
+				genero = elsgen.text().replaceAll("Gênero:", "");
+				
+			} catch (IOException e) {
+				System.err.println("[FAIL] "+ linkgenero);
+				//e.printStackTrace();
+			}
+			if(genero!=null)
+				generos.add(genero);
+		}
+		System.out.println(titles.size() +", "+generos.size() );
+		
+		List<Information> informations = new ArrayList<>();
+		if(titles.size() == generos.size()){
+			for(int i = 0; i < titles.size(); i++){
+				informations.add(new Information("Hoje", titles.get(i), generos.get(i)));
+			}
+		}
+//		informations.add(new Information("28.10.2016", "Noticia1", "Informação Software"));
+//		informations.add(new Information("28.10.2016", "Noticia2", "brincadeira de criança, como é bom, como é bom"));
+//		informations.add(new Information("28.10.2016", "Noticia3", "Brasil 3 x 0 Argentina"));
+		return informations;
 	}
 
 	

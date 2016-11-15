@@ -6,7 +6,7 @@ import br.ufrn.imd.rankerinformation.dao.impl.UserDAO;
 import br.ufrn.imd.rankerinformation.engine.filter.Analyzer;
 import br.ufrn.imd.rankerinformation.engine.filter.IntersectionModelAssociation;
 import br.ufrn.imd.rankerinformation.engine.filter.ModelAssociation;
-import br.ufrn.imd.rankerinformation.engine.model.Information;
+import br.ufrn.imd.rankerinformation.model.Information;
 import br.ufrn.imd.rankerinformation.oauth.RequestAuthorization;
 import br.ufrn.imd.rankerinformation.user.model.Preferences;
 import br.ufrn.imd.rankerinformation.user.model.SourceData;

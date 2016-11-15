@@ -3,7 +3,7 @@ package br.ufrn.imd.rankerinformation.engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufrn.imd.rankerinformation.engine.model.Information;
+import br.ufrn.imd.rankerinformation.model.Information;
 
 public class Observable {
 	

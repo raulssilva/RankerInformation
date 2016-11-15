@@ -1,4 +1,4 @@
-package br.ufrn.imd.rankerinformation.engine.model;
+package br.ufrn.imd.rankerinformation.model;
 
 public class Information {
 	

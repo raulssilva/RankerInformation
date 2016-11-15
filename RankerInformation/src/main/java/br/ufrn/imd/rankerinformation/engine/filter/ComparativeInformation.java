@@ -1,6 +1,6 @@
 package br.ufrn.imd.rankerinformation.engine.filter;
 
-import br.ufrn.imd.rankerinformation.engine.model.Information;
+import br.ufrn.imd.rankerinformation.model.Information;
 import br.ufrn.imd.rankerinformation.user.model.Preferences;
 
 public class ComparativeInformation {
