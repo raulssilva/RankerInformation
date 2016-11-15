@@ -2,7 +2,7 @@ package br.ufrn.imd.rankerinformation.user.search;
 
 import java.util.List;
 
-import br.ufrn.imd.rankerinformation.dao.PreferencesDAO;
+import br.ufrn.imd.rankerinformation.dao.impl.PreferencesDAO;
 import br.ufrn.imd.rankerinformation.oauth.RequestAuthorization;
 import br.ufrn.imd.rankerinformation.user.model.Preferences;
 import br.ufrn.imd.rankerinformation.user.model.SourceData;

@@ -1,4 +1,4 @@
-package br.ufrn.imd.rankerinformation.dao;
+package br.ufrn.imd.rankerinformation.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,17 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufrn.imd.rankerinformation.dao.IPreferencesDAO;
 import br.ufrn.imd.rankerinformation.db.JdbcSQLiteConnection;
 import br.ufrn.imd.rankerinformation.user.model.Preferences;
 import br.ufrn.imd.rankerinformation.user.model.SourceData;
 
-public class PreferencesDAO {
+public class PreferencesDAO implements IPreferencesDAO{
 	private Connection connection = null;
     private Statement query;
     private String sql;
  
     public PreferencesDAO() {
-    	
         try {
         	JdbcSQLiteConnection jdbcSQLiteConnection = JdbcSQLiteConnection.getInstance(); 
             this.connection = jdbcSQLiteConnection.getConnection();
@@ -27,11 +27,10 @@ public class PreferencesDAO {
         }
     }
     
-    
+    @Override
     public boolean createPrefferences(Preferences preferences){
         sql = "INSERT INTO PREFERENCES VALUES (?, ?)";
         UserDAO userDAO = new UserDAO();
-        SourceDataDAO sourceDataDAO = new SourceDataDAO();
         try {
     		PreparedStatement query = connection.prepareStatement(sql);
     		query.setInt(1, preferences.getId());
@@ -47,6 +46,7 @@ public class PreferencesDAO {
     	return false;
     }
 	
+    @Override
 	public Preferences readPrefferencesByIdUser(int ID_USER){
     	Preferences prefferences = new Preferences();
         sql = "SELECT * FROM PREFERENCES WHERE ID_USER = " + ID_USER;
@@ -70,6 +70,7 @@ public class PreferencesDAO {
 		return prefferences;
     }
     
+	@Override
     public Preferences readPrefferences(int ID_PREFERENCES){
     	Preferences prefferences = new Preferences();
     	
@@ -93,11 +94,19 @@ public class PreferencesDAO {
 		return prefferences;
     }
     
-    public void updatePrefferences(int ID_PREFERENCES, Preferences prefferences){
-    	//TODO updatePrefferences
+    @Override
+    public void updatePrefferences(int ID_PREFERENCES, Preferences preferences){
+    	Preferences preferencesOld = readPrefferences(ID_PREFERENCES);
+    	SourceDataDAO sourceDataDAO = new SourceDataDAO();
+    	for(SourceData sd: preferencesOld.getListSourceData()){
+    		sourceDataDAO.deleteSourceData(sd.getId());
+    	}
+    	deletePreferencesSourceData(preferencesOld);
+    	insertPreferencesSourceData(preferences);
     }
     
-    public boolean deletePrefferences(int ID_PREFERENCES){
+    @Override
+    public void deletePrefferences(int ID_PREFERENCES){
 
         sql = "DELETE FROM PREFERENCES WHERE ID_PREFERENCES = ?";
  
@@ -109,14 +118,26 @@ public class PreferencesDAO {
             query.setLong(1, ID_PREFERENCES);
             query.execute();
             query.close();
- 
-            return true;
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }
- 
-        return false;
+    }
+    
+    private void deletePreferencesSourceData(Preferences preferences){
+    	List<SourceData> listSourceData = preferences.getListSourceData();
+    	
+    	sql = "DELETE FROM PREFERENCES_SOURCE_DATA WHERE ID_PREFERENCES = ?";
+
+    	PreparedStatement query;
+        
+        try {
+            query = connection.prepareStatement(sql);
+            query.setLong(1, preferences.getId());
+            query.execute();
+            query.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     private boolean insertPreferencesSourceData(Preferences preferences){

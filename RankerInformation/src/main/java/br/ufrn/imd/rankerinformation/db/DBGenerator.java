@@ -6,7 +6,6 @@ import java.sql.Statement;
 
 public class DBGenerator {
 
-	
 	private Connection connection = null;
  
     public DBGenerator() {
@@ -26,8 +25,6 @@ public class DBGenerator {
 			System.out.println("[CHECK_DB] Opened database successfully");
 
 			stmt = connection.createStatement();
-			
-			//ADD A criação de tabelas aqui pra não precisar ler de arquiv
 
 			String sqlUSER = "CREATE TABLE IF NOT EXISTS USER("
 								+ "ID_USER INT NOT NULL PRIMARY KEY,"
@@ -48,19 +45,16 @@ public class DBGenerator {
 													+ "ID_SOURCE_DATA INT NOT NULL"
 												+ ");";
 
-
-            
 			String sql = sqlUSER + sqlSOURCE_DATA + sqlPREFERENCES + sqlPREFERENCES_SOURCE_DATA;
 			
 			stmt.executeUpdate(sql);
 			stmt.close();
 			connection.close();
 			System.out.println("[CHECK_DB] database verified");
+			
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		
 	}
-
 }

@@ -1,8 +1,8 @@
 package br.ufrn.imd.rankerinformation.engine;
 
 import java.util.List;
-import br.ufrn.imd.rankerinformation.dao.PreferencesDAO;
-import br.ufrn.imd.rankerinformation.dao.UserDAO;
+import br.ufrn.imd.rankerinformation.dao.impl.PreferencesDAO;
+import br.ufrn.imd.rankerinformation.dao.impl.UserDAO;
 import br.ufrn.imd.rankerinformation.engine.filter.Analyzer;
 import br.ufrn.imd.rankerinformation.engine.filter.IntersectionModelAssociation;
 import br.ufrn.imd.rankerinformation.engine.model.Information;
@@ -56,6 +56,11 @@ public class ManagerCycleLife implements Observer {
 			}
 		}else{
 			System.out.println("[SETUP] Usuário já existe na base de dados");
+			PreferencesDAO prefferencesDAO = new PreferencesDAO();
+			Preferences preferences = prefferencesDAO.readPrefferencesByIdUser(userConsult.getId());
+			preferences.setListSourceData(listSourceData);
+			prefferencesDAO.updatePrefferences(preferences.getId(), preferences);
+			System.out.println("[SETUP] Usuário Atualizado na base de dados");
 		}
 		
 		setup();

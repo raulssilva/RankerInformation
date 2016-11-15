@@ -1,4 +1,4 @@
-package br.ufrn.imd.rankerinformation.dao;
+package br.ufrn.imd.rankerinformation.dao.impl;
 
 
 import java.sql.Connection;
@@ -7,22 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import br.ufrn.imd.rankerinformation.dao.ISourceDataDAO;
 import br.ufrn.imd.rankerinformation.db.JdbcSQLiteConnection;
-import br.ufrn.imd.rankerinformation.user.model.User;
+import br.ufrn.imd.rankerinformation.user.model.SourceData;
 
-
-/**
- * @Fonte https://desenvolvimentoaberto.org/2014/12/10/dao-data-access-object-pattern-crud-oracle-ibm-db2-mssql-server-java/
- * @Editado_por Felipe
- */
-public class UserDAO {
+public class SourceDataDAO implements ISourceDataDAO{
 	
 	private Connection connection = null;
     private Statement query;
     private String sql;
  
-    public UserDAO() {
-    	
+    public SourceDataDAO() {
         try {
         	JdbcSQLiteConnection jdbcSQLiteConnection = JdbcSQLiteConnection.getInstance(); 
             this.connection = jdbcSQLiteConnection.getConnection();
@@ -31,43 +26,34 @@ public class UserDAO {
         }
     }
  
-    public boolean createUser(User user){
-
-        sql = "INSERT INTO USER VALUES (?, ?)";
+    public void createSourceData(SourceData sourceData){
+        sql = "INSERT INTO SOURCE_DATA VALUES (?, ?, ?)";
  
         try {
- 
             PreparedStatement query = connection.prepareStatement(sql);
-            query.setInt(1, user.getId());
-            query.setString(2, user.getName());
-            
+            query.setInt(1, sourceData.getId());
+            query.setString(2, sourceData.getContent());
+            query.setDouble(3, sourceData.getWeight());
             query.execute();
             query.close();
-            
-            return true;
- 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-		return false;
     }
     
-    public User readUser(int ID_USER){
-    	User user = new User();
-    	
-        sql = "SELECT * FROM USER WHERE ID_USER = " + ID_USER;
+    public SourceData readSourceData(int ID_SOURCE_DATA){
+    	SourceData sourceData = new SourceData();
+        sql = "SELECT * FROM SOURCE_DATA WHERE ID_SOURCE_DATA = " + ID_SOURCE_DATA;
        
         try {
             query = connection.createStatement();
             ResultSet rs = query.executeQuery(sql);
- 
-
             while (rs.next()) {
-                user.setId(rs.getInt("ID_USER"));
-                user.setName(rs.getString("NAME"));
+                sourceData.setId(rs.getInt("ID_SOURCE_DATA"));
+                sourceData.setContent(rs.getString("CONTENT"));
+                sourceData.setWeight(rs.getDouble("WEIGHT"));
             }
-            return user;
+            return sourceData;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,31 +61,24 @@ public class UserDAO {
 		return null;
     }
     
-    public void updateUser(int ID_USER, User user){
-    	//TODO updateUser
+    public void updateSourceData(int ID_SOURCEDATA, SourceData sourceData){
+    	//TODO updateSourceData
     }
     
-    public boolean deleteUser(int ID_USER){
+    public void deleteSourceData(int ID_SOURCEDATA){
 
-        sql = "DELETE FROM USER WHERE ID_USER = ?";
+        sql = "DELETE FROM SOURCE_DATA WHERE ID_SOURCE_DATA = ?";
  
         PreparedStatement query;
         
         try {
-
             query = connection.prepareStatement(sql);
-            query.setLong(1, ID_USER);
+            query.setLong(1, ID_SOURCEDATA);
             query.execute();
-            query.close();
- 
-            return true;
-            
+            query.close();            
         } catch (SQLException e) {
             e.printStackTrace();
         }
- 
-        return false;
     }
     
-   
 }

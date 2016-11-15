@@ -23,14 +23,20 @@ public class Manager {
 		listSourceData.add(new SourceData(2, "da", 0));
 		listSourceData.add(new SourceData(3, "Informação", 3));
 		listSourceData.add(new SourceData(4, "Software", 5));
-		
-		
 		//Cria um gerenciador de ciclo de vida pra cliente 
 		ManagerCycleLife mcl = new ManagerCycleLife(user.getId());
-		
-
 		//Inicia o gerenciador SETANDO as preferencias 
 		mcl.setup(user, listSourceData);
+		
+		
+//		User user2 = new User(2, "Jão");
+//		List<SourceData> listSourceData2= new ArrayList<>();
+//		listSourceData2.add(new SourceData(10, "aASS", 4));
+//		listSourceData2.add(new SourceData(20, "bABB", 1));
+//		listSourceData2.add(new SourceData(30, "ASSAc", 2));
+//		listSourceData2.add(new SourceData(40, "ASASd", 3));
+//		ManagerCycleLife mcl2 = new ManagerCycleLife(user.getId());
+//		mcl2.setup(user2, listSourceData2);
 		
 		
 		/*Isso aqui deve ser criado em uma nova classe*/
@@ -53,6 +59,7 @@ public class Manager {
 		
 		//Adiciona um observador ao gerente de busca
 		sn.addObserver(mcl);
+//		sn.addObserver(mcl2);
 		
 		//Start no processo de busca
 		sn.start();

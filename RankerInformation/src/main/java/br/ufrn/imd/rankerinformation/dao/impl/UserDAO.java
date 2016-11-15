@@ -1,4 +1,4 @@
-package br.ufrn.imd.rankerinformation.dao;
+package br.ufrn.imd.rankerinformation.dao.impl;
 
 
 import java.sql.Connection;
@@ -7,17 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import br.ufrn.imd.rankerinformation.dao.IUserDAO;
 import br.ufrn.imd.rankerinformation.db.JdbcSQLiteConnection;
-import br.ufrn.imd.rankerinformation.user.model.SourceData;
+import br.ufrn.imd.rankerinformation.user.model.User;
 
-public class SourceDataDAO {
+public class UserDAO implements IUserDAO{
 	
 	private Connection connection = null;
     private Statement query;
     private String sql;
  
-    public SourceDataDAO() {
-    	
+    public UserDAO() {
         try {
         	JdbcSQLiteConnection jdbcSQLiteConnection = JdbcSQLiteConnection.getInstance(); 
             this.connection = jdbcSQLiteConnection.getConnection();
@@ -26,77 +26,54 @@ public class SourceDataDAO {
         }
     }
  
-    public boolean createSourceData(SourceData sourceData){
-
-        sql = "INSERT INTO SOURCE_DATA VALUES (?, ?, ?)";
+    public void createUser(User user){
+        sql = "INSERT INTO USER VALUES (?, ?)";
  
         try {
- 
             PreparedStatement query = connection.prepareStatement(sql);
-            query.setInt(1, sourceData.getId());
-            query.setString(2, sourceData.getContent());
-            query.setDouble(3, sourceData.getWeight());
+            query.setInt(1, user.getId());
+            query.setString(2, user.getName());
+            
             query.execute();
             query.close();
-            return true;
- 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		return false;
     }
     
-    public SourceData readSourceData(int ID_SOURCE_DATA){
-    	SourceData sourceData = new SourceData();
-    	
-        sql = "SELECT * FROM SOURCE_DATA WHERE ID_SOURCE_DATA = " + ID_SOURCE_DATA;
+    public User readUser(int ID_USER){
+    	User user = new User();
+        sql = "SELECT * FROM USER WHERE ID_USER = " + ID_USER;
        
         try {
-        	
             query = connection.createStatement();
             ResultSet rs = query.executeQuery(sql);
- 
-
             while (rs.next()) {
-                sourceData.setId(rs.getInt("ID_SOURCE_DATA"));
-                sourceData.setContent(rs.getString("CONTENT"));
-                sourceData.setWeight(rs.getDouble("WEIGHT"));
+                user.setId(rs.getInt("ID_USER"));
+                user.setName(rs.getString("NAME"));
             }
-            
-            return sourceData;
-            
+            return user;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
 		return null;
     }
     
-    public void updateSourceData(int ID_SOURCEDATA, SourceData sourceData){
-    	//TODO updateSourceData
+    public void updateUser(int ID_USER, User user){
+    	//TODO updateUser
     }
     
-    public boolean deleteSourceData(int ID_SOURCEDATA){
-
-        sql = "DELETE FROM SOURCE_DATA WHERE ID_SOURCE_DATA = ?";
- 
+    public void deleteUser(int ID_USER){
+        sql = "DELETE FROM USER WHERE ID_USER = ?";
         PreparedStatement query;
         
         try {
-
             query = connection.prepareStatement(sql);
-            query.setLong(1, ID_SOURCEDATA);
+            query.setLong(1, ID_USER);
             query.execute();
             query.close();
- 
-            return true;
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }
- 
-        return false;
     }
-    
-   
 }

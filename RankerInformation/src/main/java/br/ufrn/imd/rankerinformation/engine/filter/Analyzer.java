@@ -14,7 +14,6 @@ import br.ufrn.imd.rankerinformation.user.model.Preferences;
 public class Analyzer{
 
 	public List<Information> analyze(List<Information> informations, Preferences prefferences, ModelAssociation modelAssociation) {
-//		System.out.println("analyze(Size Informations: "+informations.size()+", Prefferences"+prefferences.getUser().getName() +", "+modelAssociation.getClass().getCanonicalName()+")");
 		List<ComparativeInformation> comparativeInformationList = new ArrayList<ComparativeInformation>();
 		
 		//TODO Rever essa parte
@@ -34,28 +33,23 @@ public class Analyzer{
 		}
 		System.out.println("\n ----------------------");
 		
-		//TODO REITIRAR
+		//TODO RETIRAR
 		for (ComparativeInformation information : comparativeInformationList) {System.out.println("[NOT_ORDER] "+information.getInformation().getTitle() +", "+ information.getWeight());}
 		System.out.println("----------------------");
 		
 		List<ComparativeInformation> rankInformationList = sortInformations(comparativeInformationList);
 		
-		//TODO REITIRAR
+		//TODO RETIRAR
 		for (ComparativeInformation information : rankInformationList) {System.out.println("[ORDER] "+information.getInformation().getTitle() +", "+ information.getWeight());}
 		System.out.println("----------------------");
 		
 		List<Information> listInformation = toListInformation(rankInformationList);
-		
-		//TODO REITIRAR
-//		for (Information information : listInformation) {System.out.println(information.getTitle() +", "+ information.getContent().length());}
-		
+
 		return listInformation;
 	}
 	
 	
 	private ComparativeInformation association(Information information, PreferencesTerms preferencesTerms, ModelAssociation modelAssociation) {
-//		System.out.println("association(Size Information: "+information.getContent().length()+", preferencesTerms"+preferencesTerms.getUserPreferences().size()+", "+modelAssociation.getClass().getCanonicalName()+")");
-		
 		ComparativeInformation compInformation = new ComparativeInformation(information);
 		
 		Extractor extractor = new Extractor();
@@ -74,9 +68,6 @@ public class Analyzer{
 				compInformation.setWeight(compInformation.getWeight()+weight);
 			}
 		}
-		
-		//TODO REITRAR
-//		System.out.println("	compInformation = " +compInformation.toString());
 		
 		return compInformation;
 	}
@@ -102,17 +93,11 @@ public class Analyzer{
 			comparativeInformationList.set(index, comparativeInformationList.get(i));
 			comparativeInformationList.set(i, information);
 			test = 0;
-			
-			//listInformation.add(comparativeInformationList.get(index));
-//			System.out.println(comparativeInformationList.get(i).getInformation().getTitle()+", "+comparativeInformationList.get(i).getWeight());
 		} 
-		
 		System.out.println("[SORT] ");
-		
 		return comparativeInformationList;
 	}
-	
-	//TODO Verificar possibilidade de colocar no pacote utils.
+
 	private List<Information> toListInformation(List<ComparativeInformation> comparativeInformationList) {
 		
 		List<Information> listInformation = new ArrayList<Information>(); 
@@ -121,7 +106,6 @@ public class Analyzer{
 		}
 		
 		return listInformation;
-		
 	}
 	
 }

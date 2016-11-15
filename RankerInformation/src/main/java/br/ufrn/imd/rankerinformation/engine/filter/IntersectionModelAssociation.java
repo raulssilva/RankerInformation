@@ -41,7 +41,6 @@ public class IntersectionModelAssociation implements ModelAssociation{
 						return value;
 					}
 				}
-				
 				return value;
 			}	
 			
