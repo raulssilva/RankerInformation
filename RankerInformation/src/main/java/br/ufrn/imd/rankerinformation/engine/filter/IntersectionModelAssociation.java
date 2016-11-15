@@ -4,8 +4,6 @@ import br.ufrn.imd.rankerinformation.engine.filter.model.UserPreferences;
 
 public class IntersectionModelAssociation implements ModelAssociation{
 
-	private static IntersectionModelAssociation intersectionModelAssociation = new IntersectionModelAssociation();
-	
 	public IntersectionModelAssociation(){
 		
 	}
@@ -18,10 +16,8 @@ public class IntersectionModelAssociation implements ModelAssociation{
 	 * */
 	@Override
 	public double calculate(UserPreferences termPreferences, String termsInformation) {
-		
 		try {
-			// TODO
-			String userTerm = termPreferences.getTermo(); 
+			String userTerm = termPreferences.getTermo().toLowerCase(); 
 			if(userTerm.equals(termsInformation)) {
 				return 10.0;
 			} else {
@@ -47,12 +43,7 @@ public class IntersectionModelAssociation implements ModelAssociation{
 		} catch (Exception e){
 			e.getStackTrace();
 		}
-		
 		return 0;
 	}	
-	
-	public static IntersectionModelAssociation getInstance() {
-		return intersectionModelAssociation;
-	}
 
 }

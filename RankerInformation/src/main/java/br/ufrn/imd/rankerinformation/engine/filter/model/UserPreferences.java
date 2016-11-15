@@ -34,5 +34,13 @@ public class UserPreferences {
 	public void addQuantidade() {
 		setRepeticoes(getRepeticoes() + 1);
 	}
+
+	@Override
+	public String toString() {
+		return "UserPreferences [termo=" + termo + ", repeticoes=" + repeticoes + "]";
+	}
+	
+	
+	
 	
 }

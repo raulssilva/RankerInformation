@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufrn.imd.rankerinformation.db.DBGenerator;
+import br.ufrn.imd.rankerinformation.engine.filter.IntersectionModelAssociation;
+import br.ufrn.imd.rankerinformation.engine.filter.IntersectionModelAssociation2;
 import br.ufrn.imd.rankerinformation.engine.model.Information;
 import br.ufrn.imd.rankerinformation.engine.search.SearchEngine;
 import br.ufrn.imd.rankerinformation.user.model.SourceData;
@@ -23,23 +25,31 @@ public class Manager {
 		listSourceData.add(new SourceData(2, "da", 0));
 		listSourceData.add(new SourceData(3, "Informação", 3));
 		listSourceData.add(new SourceData(4, "Software", 5));
-		//Cria um gerenciador de ciclo de vida pra cliente 
+		
+		//Cria um gerenciador de ciclo de vida pra cliente com Modelo de Associação pardrão 
 		ManagerCycleLife mcl = new ManagerCycleLife(user.getId());
+		
 		//Inicia o gerenciador SETANDO as preferencias 
 		mcl.setup(user, listSourceData);
 		
-		
-//		User user2 = new User(2, "Jão");
-//		List<SourceData> listSourceData2= new ArrayList<>();
-//		listSourceData2.add(new SourceData(10, "aASS", 4));
-//		listSourceData2.add(new SourceData(20, "bABB", 1));
-//		listSourceData2.add(new SourceData(30, "ASSAc", 2));
-//		listSourceData2.add(new SourceData(40, "ASASd", 3));
-//		ManagerCycleLife mcl2 = new ManagerCycleLife(user.getId());
-//		mcl2.setup(user2, listSourceData2);
+		//Modifica o modelo de associação
+		mcl.setModelAssociation(new IntersectionModelAssociation());
 		
 		
-		/*Isso aqui deve ser criado em uma nova classe*/
+		//Cria um segundo usuário (mesmo processo anterior)
+		User user2 = new User(2, "Jão");
+		List<SourceData> listSourceData2= new ArrayList<>();
+		listSourceData2.add(new SourceData(10, "Bad", 4));
+		listSourceData2.add(new SourceData(20, "uhhh", 1));
+		listSourceData2.add(new SourceData(30, "legal", 2));
+		listSourceData2.add(new SourceData(40, "Brasil porra, toma Argentina", 3));
+		ManagerCycleLife mcl2 = new ManagerCycleLife(user2.getId());
+		mcl2.setup(user2, listSourceData2);
+		mcl2.setModelAssociation(new IntersectionModelAssociation2());
+		
+		
+		
+		/*Implementa uma ferrmenta de busca*/
 		SearchEngine sn = new SearchEngine() {
 			@Override
 			public void start() {
@@ -57,9 +67,11 @@ public class Manager {
 			}
 		};
 		
-		//Adiciona um observador ao gerente de busca
+		
+		//Adiciona um observador ao gerente de busca ()
 		sn.addObserver(mcl);
-//		sn.addObserver(mcl2);
+		sn.addObserver(mcl2);
+		
 		
 		//Start no processo de busca
 		sn.start();

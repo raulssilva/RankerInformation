@@ -5,6 +5,7 @@ import br.ufrn.imd.rankerinformation.dao.impl.PreferencesDAO;
 import br.ufrn.imd.rankerinformation.dao.impl.UserDAO;
 import br.ufrn.imd.rankerinformation.engine.filter.Analyzer;
 import br.ufrn.imd.rankerinformation.engine.filter.IntersectionModelAssociation;
+import br.ufrn.imd.rankerinformation.engine.filter.ModelAssociation;
 import br.ufrn.imd.rankerinformation.engine.model.Information;
 import br.ufrn.imd.rankerinformation.oauth.RequestAuthorization;
 import br.ufrn.imd.rankerinformation.user.model.Preferences;
@@ -17,8 +18,14 @@ public class ManagerCycleLife implements Observer {
 
 	private int iduserCycleLife;
 	private Preferences preferences;
+	private ModelAssociation modelAssociation;
 	
 	public ManagerCycleLife(int iduserCycleLife){
+		this.iduserCycleLife = iduserCycleLife;
+		this.modelAssociation = new IntersectionModelAssociation();
+	}
+	
+	public ManagerCycleLife(int iduserCycleLife, ModelAssociation modelAssociation){
 		this.iduserCycleLife = iduserCycleLife;
 	}
 	
@@ -76,11 +83,19 @@ public class ManagerCycleLife implements Observer {
 		System.out.println("[SETUP] "+preferences.toString());
 		System.out.println("----------------------");
 	}
-
+	
 	@Override
 	public void update(List<Information> informations) {
 		Analyzer analyzer = new Analyzer();
-		List<Information> analyzedList = analyzer.analyze(informations, preferences, new IntersectionModelAssociation());
+		List<Information> analyzedList = analyzer.analyze(informations, preferences, modelAssociation);
+	}
+
+	public ModelAssociation getModelAssociation() {
+		return modelAssociation;
+	}
+
+	public void setModelAssociation(ModelAssociation modelAssociation) {
+		this.modelAssociation = modelAssociation;
 	}
 
 	

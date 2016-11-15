@@ -5,18 +5,23 @@ public class Information {
 	private String date;
 	private String title;
 	private String content;
-	
-//	public abstract void informationDescription();
+	private int type;
 	
 	public Information() {
 
 	}
 	
 	public Information(String date, String title, String content) {
-		super();
 		this.date = date;
 		this.title = title;
 		this.content = content;
+	}
+	
+	public Information(String date, String title, String content, int type) {
+		this.date = date;
+		this.title = title;
+		this.content = content;
+		this.type = type;
 	}
 	
 	public String getDate() {
@@ -74,6 +79,14 @@ public class Information {
 		} else if (!title.equals(other.title))
 			return false;
 		return true;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 }
