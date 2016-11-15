@@ -1,6 +1,6 @@
 package br.ufrn.imd.rankerinformation.engine.filter;
 
-import br.ufrn.imd.rankerinformation.engine.filter.model.UserPreferences;
+import br.ufrn.imd.rankerinformation.user.model.SourceData;
 
 public class IntersectionModelAssociation implements ModelAssociation{
 
@@ -15,9 +15,9 @@ public class IntersectionModelAssociation implements ModelAssociation{
 	 * Obs.: value means the number of letters are equals.
 	 * */
 	@Override
-	public double calculate(UserPreferences termPreferences, String termsInformation) {
+	public double calculate(SourceData termPreferences, String termsInformation) {
 		try {
-			String userTerm = termPreferences.getTermo().toLowerCase(); 
+			String userTerm = termPreferences.getContent().toLowerCase(); 
 			if(userTerm.equals(termsInformation)) {
 				return 10.0;
 			} else {

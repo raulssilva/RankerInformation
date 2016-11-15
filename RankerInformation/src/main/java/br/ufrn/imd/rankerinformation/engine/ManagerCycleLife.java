@@ -88,6 +88,10 @@ public class ManagerCycleLife implements Observer {
 	public void update(List<Information> informations) {
 		Analyzer analyzer = new Analyzer();
 		List<Information> analyzedList = analyzer.analyze(informations, preferences, modelAssociation);
+	
+		for(Information information : analyzedList){
+			System.out.println(information.toString());
+		}
 	}
 
 	public ModelAssociation getModelAssociation() {

@@ -6,15 +6,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import br.ufrn.imd.rankerinformation.engine.filter.model.UserPreferences;
+import br.ufrn.imd.rankerinformation.user.model.SourceData;
 
 public class GoogleModelAssociation implements ModelAssociation{
 
 	
-	public double calculate(UserPreferences termPreferences, String termsInformation) {
-		double sp = searchResult(termPreferences.getTermo())*1.0;
+	public double calculate(SourceData termPreferences, String termsInformation) {
+		double sp = searchResult(termPreferences.getContent())*1.0;
 		double st = searchResult(termsInformation)*1.0;
-		double spst = searchResult("\""+termsInformation + "\" \"" + termPreferences.getTermo()+"\"")*1.0;
+		double spst = searchResult("\""+termsInformation + "\" \"" + termPreferences.getContent()+"\"")*1.0;
 		double value = (spst/sp)+(spst/st);
 		return value;
 	}

@@ -88,5 +88,12 @@ public class Information {
 	public void setType(int type) {
 		this.type = type;
 	}
+
+	@Override
+	public String toString() {
+		return "Information [date=" + date + ", title=" + title + ", content=" + content + ", type=" + type + "]";
+	}
+	
+	
 	
 }
