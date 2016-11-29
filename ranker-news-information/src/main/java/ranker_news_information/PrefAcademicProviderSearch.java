@@ -24,10 +24,12 @@ public class PrefAcademicProviderSearch implements PreferencesProviderSearch{
 	private static final String ACESS_PERFIL_USER = "https://apitestes.info.ufrn.br/ensino-services/services/consulta/perfilusuario/";
 	private static final String ACESS_VINCULO_USER = "https://apitestes.info.ufrn.br/ensino-services/services/consulta/listavinculos/usuario";
 	
-	private RequestAuthorization authorization;
-	private final JsonParserUtil jsonParserUtil = new JsonParserUtil();
-
+	private final JsonParserUtil jsonParserUtil;
 	
+	public PrefAcademicProviderSearch(){
+		jsonParserUtil = new JsonParserUtil();
+	}
+
 	public List<SourceData> consultDataSource(RequestAuthorization authorization, User user) {
 		
 		List<SourceData> disciplinas = null;
@@ -39,15 +41,20 @@ public class PrefAcademicProviderSearch implements PreferencesProviderSearch{
 			
 			disciplinas = new ArrayList<SourceData>();
 			
+			ArrayList<Integer> testidDisciplina = new ArrayList<Integer>();
 			for(Object turma : turmas){
 				JSONObject turmaJASON = (JSONObject) turma;
 				
 				int idTurma = Integer.parseInt(turmaJASON.get("idTurma").toString()) ;
 				SourceData disciplina;
 
-					disciplina = consultSubject(idTurma);
-
-				disciplinas.add(disciplina);
+				disciplina = consultSubject(idTurma, authorization);
+				
+				if(!testidDisciplina.contains(disciplina.getId())){
+					disciplinas.add(disciplina);
+					testidDisciplina.add(disciplina.getId());
+				}
+				
 			}
 			
 		} catch (InvalidServiceRequestException e) {
@@ -83,7 +90,7 @@ public class PrefAcademicProviderSearch implements PreferencesProviderSearch{
 			JSONObject discente =  (JSONObject) discentes.get(0);
 			int idUsuario = Integer.parseInt(discente.get("idUsuario").toString()) ;
 			int idDiscente = Integer.parseInt(discente.get("id").toString()) ;
-			String name = colsultProfileName(idUsuario);
+			String name = colsultProfileName(idUsuario, authorization);
 			user = new User(idDiscente, name);
 		
 		} catch (ParseException e) {
@@ -103,14 +110,13 @@ public class PrefAcademicProviderSearch implements PreferencesProviderSearch{
 		return user;
 	}
 	
-	private String colsultProfileName(int idUser) throws ParseException, InvalidServiceRequestException, UnauthorizedServiceRequestException, RequestException{
-		String stringResponse;
-		stringResponse = authorization.getResponse(ACESS_PERFIL_USER+idUser);
+	private String colsultProfileName(int idUser, RequestAuthorization authorization) throws ParseException, InvalidServiceRequestException, UnauthorizedServiceRequestException, RequestException{
+		String stringResponse = authorization.getResponse(ACESS_PERFIL_USER+idUser);
 		String name = jsonParserUtil.extractStringJSONObject(stringResponse, "nome");
 		return name;
 	}
 	
-	private SourceData consultSubject(int courseClassId) throws InvalidServiceRequestException, UnauthorizedServiceRequestException, RequestException, ParseException{
+	private SourceData consultSubject(int courseClassId, RequestAuthorization authorization) throws InvalidServiceRequestException, UnauthorizedServiceRequestException, RequestException, ParseException{
 		String stringResponse = null;
 		stringResponse = authorization.getResponse(ACESS_DISCIPLINA_USER+courseClassId);
 		JSONObject disciplina = jsonParserUtil.extractJSONObject(stringResponse);

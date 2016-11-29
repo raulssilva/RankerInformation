@@ -27,7 +27,7 @@ public class SourceDataDAO implements ISourceDataDAO{
     }
  
     public void createSourceData(SourceData sourceData){
-        sql = "INSERT INTO SOURCE_DATA VALUES (?, ?, ?)";
+        sql = "INSERT INTO SOURCE_DATA VALUES (?, ?, ?)"; //WHERE NOT EXISTS (SELECT * FROM SOURCE_DATA sd WHERE sd.ID_SOURCE_DATA = "+sourceData.getId()+")";
  
         try {
             PreparedStatement query = connection.prepareStatement(sql);
