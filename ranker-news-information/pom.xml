@@ -37,5 +37,12 @@
 	    <version>1.9.2</version>
 	</dependency>
 	<!-- 00000000000000000 -->
+	
+	<dependency>
+		<groupId>com.googlecode.json-simple</groupId>
+		<artifactId>json-simple</artifactId>
+		<version>1.1</version>
+	</dependency>
+	
   </dependencies>
 </project>
