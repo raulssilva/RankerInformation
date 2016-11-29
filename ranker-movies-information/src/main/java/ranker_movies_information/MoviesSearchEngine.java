@@ -1,4 +1,4 @@
-package br.ufrn.imd.rankerinformation.ranker_movies_information;
+package ranker_movies_information;
 
 import java.io.IOException;
 import java.util.ArrayList;
