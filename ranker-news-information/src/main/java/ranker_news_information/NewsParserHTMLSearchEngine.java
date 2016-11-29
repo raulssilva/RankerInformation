@@ -53,6 +53,7 @@ public class NewsParserHTMLSearchEngine extends SearchEngine{
     	for (String link : links) {
     		Document acessNotice = null;
 			try {
+				System.out.println("[SEARCHING_NEWS IN] "+link);
 				acessNotice = Jsoup.connect(link).timeout(3000).get();
 			} catch (IOException e) {
 				e.printStackTrace();

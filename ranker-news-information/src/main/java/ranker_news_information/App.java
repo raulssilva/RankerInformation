@@ -8,7 +8,7 @@ import br.ufrn.imd.rankerinformation.engine.search.SearchEngine;
 public class App {
 
 	private static final String ACESS_TOKEN = "41db62f2-eca3-46db-8ca5-dfe8de87dd86";
-	private static final int ID_USER = 361457;
+	private static final int ID_USER = 642534;
 	
     public static void main( String[] args ){
     	DBGenerator dbGenerator = new DBGenerator();
