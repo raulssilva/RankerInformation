@@ -1,4 +1,4 @@
-package ranker_news_information;
+package sigaa.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,8 @@ import br.ufrn.imd.rankerinformation.oauth.RequestAuthorization;
 import br.ufrn.imd.rankerinformation.oauth.exceptions.InvalidServiceRequestException;
 import br.ufrn.imd.rankerinformation.oauth.exceptions.RequestException;
 import br.ufrn.imd.rankerinformation.oauth.exceptions.UnauthorizedServiceRequestException;
+import br.ufrn.imd.rankerinformation.user.model.SourceData;
 import br.ufrn.imd.rankerinformation.util.JsonParserUtil;
-import sigaa.model.CourseClass;
-import sigaa.model.Subject;
 
 public class CourseClassSearch {
 	
@@ -27,13 +26,13 @@ public class CourseClassSearch {
 		this.authorization = authorization;
 	}
 
-	public List<CourseClass> consultCourseClass(int idUser) throws InvalidServiceRequestException, UnauthorizedServiceRequestException, RequestException, ParseException {
+	public List<SourceData> consultCourseClass(int idUser) throws InvalidServiceRequestException, UnauthorizedServiceRequestException, RequestException, ParseException {
 
 		String stringResponse = null;
 		
 		stringResponse = authorization.getResponse(ACESS_DISCIPLINAS_USER+idUser+"/all");
 
-		List<CourseClass> coursesClass = new ArrayList<CourseClass>();
+		List<SourceData> disciplinas = new ArrayList<SourceData>();
 
 		JSONArray turmas = jsonParserUtil.extractJSONArray(stringResponse);
 		
@@ -41,15 +40,11 @@ public class CourseClassSearch {
 			JSONObject turmaJASON = (JSONObject) turma;
 			
 			int idTurma = Integer.parseInt(turmaJASON.get("idTurma").toString()) ;
-			String description = turmaJASON.get("idTurma").toString();
-			Subject subject = consultSubject(idTurma);
-//			
-			CourseClass courseClass = new CourseClass(idTurma, subject, description);
-			
-			coursesClass.add(courseClass);
+			SourceData disciplina = consultSubject(idTurma);
+			disciplinas.add(disciplina);
 		}
 		
-		return coursesClass;
+		return disciplinas;
 	}
 	
 	public RequestAuthorization getAuthorization() {
@@ -60,7 +55,7 @@ public class CourseClassSearch {
 		this.authorization = authorization;
 	}
 
-	private Subject consultSubject(int courseClassId) throws InvalidServiceRequestException, UnauthorizedServiceRequestException, RequestException, ParseException{
+	private SourceData consultSubject(int courseClassId) throws InvalidServiceRequestException, UnauthorizedServiceRequestException, RequestException, ParseException{
 		
 		String stringResponse = null;
 		
@@ -69,12 +64,10 @@ public class CourseClassSearch {
 		JSONObject disciplina = jsonParserUtil.extractJSONObject(stringResponse);
 
 		String nomeComponente = disciplina.get("nomeComponente").toString() ;
-		String codigoComponente = disciplina.get("codigoComponente").toString() ;
 		int idDisciplina = Integer.parseInt(disciplina.get("idDisciplina").toString()) ;
 		
-		Subject susbject = new Subject(idDisciplina, nomeComponente, codigoComponente);
-
-		return susbject;
+		SourceData sourceData = new SourceData(idDisciplina, nomeComponente, 1);
+		return sourceData;
 	}
 	
 }
