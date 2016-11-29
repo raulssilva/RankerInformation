@@ -26,9 +26,12 @@ public class MoviesSearchEngine extends SearchEngine{
 		String noticia = "http://www3.cinemark.com.br/natal/cinemas?cinema=681";
 		Document doc = null;
 		try {
+			System.out.print("[SEARCH] "+noticia);
 			doc = Jsoup.connect(noticia).get();
+			System.out.println(" ->> OK");
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
 		Element el = doc.getElementsByClass("tabs-content").get(0).getElementsByClass("active").get(0);
 		Elements elTitles = el.getElementsByClass("title");
@@ -41,7 +44,9 @@ public class MoviesSearchEngine extends SearchEngine{
 			titles.add(eli.text());
 			linksGeneros.add("http://www3.cinemark.com.br"+eli.getElementsByTag("a").get(0).attr("href"));
 		}
+		System.out.println();
 		for(String linkgenero : linksGeneros){
+			System.out.print("[SEARCH] "+linkgenero);
 			String genero = null;
 			try {
 				doc = Jsoup.connect(linkgenero).get();
@@ -52,8 +57,10 @@ public class MoviesSearchEngine extends SearchEngine{
 				System.err.println("[FAIL] "+ linkgenero);
 				//e.printStackTrace();
 			}
-			if(genero!=null)
+			if(genero!=null){
 				generos.add(genero);
+				System.out.println(" ->> OK");
+			}
 		}
 		System.out.println(titles.size() +", "+generos.size() );
 		

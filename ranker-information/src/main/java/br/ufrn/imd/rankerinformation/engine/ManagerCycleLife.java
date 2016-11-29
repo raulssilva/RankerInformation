@@ -34,12 +34,9 @@ public class ManagerCycleLife implements Observer {
 		User user = userDAO.readUser(iduserCycleLife);
 		if(user == null || user.getId() == 0){
 			try {
-
 				RequestAuthorization authorization = new RequestAuthorization(acess_token);
 				PreferencesBuilder prefBuilder = new PreferencesBuilder();
-				
 				prefBuilder.buiderFormASearch(authorization, preferencesProviderSearch);
-				
 				System.out.println("[SETUP] Dados buscado na API");
 				
 			} catch (Exception e) {
@@ -89,8 +86,10 @@ public class ManagerCycleLife implements Observer {
 		Analyzer analyzer = new Analyzer();
 		List<Information> analyzedList = analyzer.analyze(informations, preferences, modelAssociation);
 	
+		int n = 1;
 		for(Information information : analyzedList){
-			System.out.println(information.toString());
+			
+			System.out.println((n++)+"° "+information.getTitle()+", "+information.getContent());
 		}
 	}
 
