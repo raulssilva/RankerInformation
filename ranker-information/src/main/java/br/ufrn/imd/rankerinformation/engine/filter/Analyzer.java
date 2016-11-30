@@ -74,6 +74,7 @@ public class Analyzer{
 			comparativeInformationList.set(i, information);
 			test = 0;
 		} 
+		System.out.println("----------------------");
 		System.out.println("[SORT] ");
 		return comparativeInformationList;
 	}

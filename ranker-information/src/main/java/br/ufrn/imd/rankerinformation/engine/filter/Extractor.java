@@ -43,7 +43,7 @@ public class Extractor{
 		for(String s : setTerms){
 			System.out.print(s+" | ");
 		}
-		
+
 		return setTerms;
 	}
 	

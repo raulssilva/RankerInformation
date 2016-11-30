@@ -86,6 +86,7 @@ public class ManagerCycleLife implements Observer {
 		Analyzer analyzer = new Analyzer();
 		List<Information> analyzedList = analyzer.analyze(informations, preferences, modelAssociation);
 	
+		
 		int n = 1;
 		for(Information information : analyzedList){
 			

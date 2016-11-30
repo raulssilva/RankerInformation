@@ -59,7 +59,9 @@ public class SaraivaBooksParserHTMLSearchEngine extends SearchEngine{
 				titlescategory.remove(contLinkCorrect);
 			}
 		}
-		
+		long elapsed = System.currentTimeMillis() - start;
+    	System.out.println();
+    	System.out.println("[SEARCHING_NEWS] time " + elapsed/1000.0 + " segundos");
 		
 		List<Information> books = new ArrayList<Information>();
 		

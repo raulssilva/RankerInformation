@@ -2,7 +2,7 @@ package ranker_news_information;
 
 import br.ufrn.imd.rankerinformation.db.DBGenerator;
 import br.ufrn.imd.rankerinformation.engine.ManagerCycleLife;
-import br.ufrn.imd.rankerinformation.engine.filter.modelsassociation.GenreMatchingModelAssociation;
+import br.ufrn.imd.rankerinformation.engine.filter.modelsassociation.IntersectionModelAssociation2;
 import br.ufrn.imd.rankerinformation.engine.search.SearchEngine;
 
 public class App {
@@ -22,7 +22,7 @@ public class App {
 		mcl.setup(ACESS_TOKEN, new PrefAcademicProviderSearch());
 		
 		//Modifica o modelo de associação
-		mcl.setModelAssociation(new GenreMatchingModelAssociation());
+		mcl.setModelAssociation(new IntersectionModelAssociation2());
 		
 
 		/*Implementa uma ferrmenta de busca*/
