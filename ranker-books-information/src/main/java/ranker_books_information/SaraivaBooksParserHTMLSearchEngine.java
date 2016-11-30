@@ -69,9 +69,10 @@ public class SaraivaBooksParserHTMLSearchEngine extends SearchEngine{
 		for(Elements eles : elements){
 			for(Element element : eles){
 				String title = element.getElementsByTag("span").first().attr("title");
-				System.out.println(title);
+//				System.out.println(title);
 //				String data = element.getElementsByClass("zg_releaseDate").first().text();
 //				System.out.println(data);
+//				System.out.println( titlescategory.get(cont));
 				books.add(new Information("today", title, titlescategory.get(cont), cont));
 			}
 			cont++;
@@ -81,26 +82,26 @@ public class SaraivaBooksParserHTMLSearchEngine extends SearchEngine{
 	}
 	
 	
-	private String extractDataFromHTML(String content){
-		String contentCleared = "";
-		int flag = 0;
-		for(int i = 0; i < content.length(); i++){
-			if(content.charAt(i) == '<'){
-				flag = 1;
-			}
-			
-			if(flag == 0){
-				if(content.charAt(i) != '\n'){
-					contentCleared += content.charAt(i);					
-				}
-			}
-			
-			if(content.charAt(i) == '>'){
-				flag = 0;
-			}
-		}
-		return contentCleared.trim();
-	}
+//	private String extractDataFromHTML(String content){
+//		String contentCleared = "";
+//		int flag = 0;
+//		for(int i = 0; i < content.length(); i++){
+//			if(content.charAt(i) == '<'){
+//				flag = 1;
+//			}
+//			
+//			if(flag == 0){
+//				if(content.charAt(i) != '\n'){
+//					contentCleared += content.charAt(i);					
+//				}
+//			}
+//			
+//			if(content.charAt(i) == '>'){
+//				flag = 0;
+//			}
+//		}
+//		return contentCleared.trim();
+//	}
 
 	
 }

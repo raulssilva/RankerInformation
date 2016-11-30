@@ -9,7 +9,7 @@ public class CategoryMatchingModelAssociation implements ModelAssociation{
 		String content = termPreferences.getContent().toLowerCase();		
 		double weight = termPreferences.getWeight();
 		
-		System.out.println("---CONTENT---" + content + "---TERM---" + termsInformation);
+//		System.out.println("\n"+content + " x " + termsInformation);
 		if(termsInformation.toLowerCase().contains(content)) {
 			return weight;
 		} else {

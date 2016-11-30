@@ -58,6 +58,7 @@ public class Analyzer{
 		int size = comparativeInformationList.size();
 		int index = 0, test;
 		ComparativeInformation information = comparativeInformationList.get(index);
+		System.out.println("----------------------");
 		System.out.println("[ANALYSER] Ordering informations");
 		for(int i=0; i < size;i++){
 			information = comparativeInformationList.get(i);

@@ -39,11 +39,11 @@ public class Extractor{
 		
 		setTerms.add(term);
 		//TODO retirar o print
-		System.out.println("[EXTRACT] ");
+		System.out.print("[EXTRACT] ");
 		for(String s : setTerms){
 			System.out.print(s+" | ");
 		}
-
+		System.out.println();
 		return setTerms;
 	}
 	
