@@ -26,7 +26,7 @@ public class App {
 		
 
 		/*Implementa uma ferrmenta de busca*/
-		SearchEngine sn = new NewsParserHTMLSearchEngine();	
+		SearchEngine sn = new NewsSearchEngine();	
 		
 		//Adiciona um observador ao gerente de busca ()
 		sn.addObserver(mcl);

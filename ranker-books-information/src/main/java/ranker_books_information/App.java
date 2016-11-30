@@ -36,10 +36,10 @@ public class App {
 		
 		//Modifica o modelo de associação
 		// TODO Jackson, colocar seu modelo de associação aqui
-		raulMCL.setModelAssociation(new CategoryMatchingModelAssociation());
+		raulMCL.setModelAssociation(new CategoryModelAssociation());
 		
 		/*Implementa uma ferrmenta de busca*/
-		SearchEngine sn = new SaraivaBooksParserHTMLSearchEngine();	
+		SearchEngine sn = new BooksSearchEngine();	
 		
 		//Adiciona um observador ao gerente de busca ()
 		sn.addObserver(raulMCL);

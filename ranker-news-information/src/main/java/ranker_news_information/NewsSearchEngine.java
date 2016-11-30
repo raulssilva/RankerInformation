@@ -12,7 +12,7 @@ import org.jsoup.select.Elements;
 import br.ufrn.imd.rankerinformation.engine.search.SearchEngine;
 import br.ufrn.imd.rankerinformation.model.Information;
 
-public class NewsParserHTMLSearchEngine extends SearchEngine{
+public class NewsSearchEngine extends SearchEngine{
 	
 	@Override
 	public void start() {

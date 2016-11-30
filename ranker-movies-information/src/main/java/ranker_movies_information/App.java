@@ -5,9 +5,6 @@ import java.util.List;
 
 import br.ufrn.imd.rankerinformation.db.DBGenerator;
 import br.ufrn.imd.rankerinformation.engine.ManagerCycleLife;
-import br.ufrn.imd.rankerinformation.engine.filter.modelsassociation.GenreMatchingModelAssociation;
-import br.ufrn.imd.rankerinformation.engine.filter.modelsassociation.IntersectionModelAssociation;
-import br.ufrn.imd.rankerinformation.engine.filter.modelsassociation.IntersectionModelAssociation2;
 import br.ufrn.imd.rankerinformation.engine.search.SearchEngine;
 import br.ufrn.imd.rankerinformation.user.model.SourceData;
 import br.ufrn.imd.rankerinformation.user.model.User;
@@ -38,7 +35,7 @@ public class App
 		mcl.setup(user, listSourceData);
 		
 		//Modifica o modelo de associação
-		mcl.setModelAssociation(new IntersectionModelAssociation());
+		mcl.setModelAssociation(new GenreModelAssociation());
 		
 		//Cria um segundo usuário (mesmo processo anterior)
 		User user2 = new User(2, "Raul");
@@ -49,7 +46,7 @@ public class App
 		listSourceData2.add(new SourceData(40, "Brasil porra, toma Argentina", 3));
 		ManagerCycleLife mcl2 = new ManagerCycleLife(user2.getId());
 		mcl2.setup(user2, listSourceData2);
-		mcl2.setModelAssociation(new IntersectionModelAssociation2());
+		mcl2.setModelAssociation(new GenreModelAssociation());
 		
 		//Cria um segundo usuário (mesmo processo anterior)
 		User user3 = new User(3, "Jackson");
@@ -60,7 +57,7 @@ public class App
 		listSourceData3.add(new SourceData(44, "Drama", 4));
 		ManagerCycleLife mcl3 = new ManagerCycleLife(user3.getId());
 		mcl3.setup(user3, listSourceData3);
-		mcl3.setModelAssociation(new GenreMatchingModelAssociation());
+		mcl3.setModelAssociation(new GenreModelAssociation());
 		
 		
 		/*Implementa uma ferrmenta de busca*/

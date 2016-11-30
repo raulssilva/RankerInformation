@@ -12,7 +12,7 @@ import org.jsoup.select.Elements;
 import br.ufrn.imd.rankerinformation.engine.search.SearchEngine;
 import br.ufrn.imd.rankerinformation.model.Information;
 
-public class SaraivaBooksParserHTMLSearchEngine extends SearchEngine{
+public class BooksSearchEngine extends SearchEngine{
 	
 	@Override
 	public void start() {
